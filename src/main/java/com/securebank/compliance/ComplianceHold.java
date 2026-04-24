@@ -2,8 +2,11 @@ package com.securebank.compliance;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+
 import java.time.Instant;
 
 @Entity
@@ -11,45 +14,57 @@ import java.time.Instant;
 public class ComplianceHold {
 
     @Id
-    @Column(length = 36)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Column(name = "account_id", nullable = false, length = 36)
-    private String accountId;
+    @Column(name = "customer_id", nullable = false)
+    private Long customerId;
 
     @Column(nullable = false, length = 500)
     private String reason;
 
-    @Column(nullable = false)
-    private long amount;
-
-    @Column(nullable = false, length = 20)
+    @Column(nullable = false, length = 32)
     private String status;
 
-    @Column(name = "created_at", nullable = false, updatable = false)
+    @Column(name = "created_at", nullable = false)
     private Instant createdAt;
 
-    protected ComplianceHold() {}
+    @Column(name = "released_at")
+    private Instant releasedAt;
 
-    public ComplianceHold(String id, String accountId, String reason, long amount,
-                          String status, Instant createdAt) {
-        this.id = id;
-        this.accountId = accountId;
-        this.reason = reason;
-        this.amount = amount;
-        this.status = status;
-        this.createdAt = createdAt;
+    protected ComplianceHold() {
     }
 
-    public String getId() { return id; }
+    public ComplianceHold(Long customerId, String reason, String status,
+                          Instant createdAt, Instant releasedAt) {
+        this.customerId = customerId;
+        this.reason = reason;
+        this.status = status;
+        this.createdAt = createdAt;
+        this.releasedAt = releasedAt;
+    }
 
-    public String getAccountId() { return accountId; }
+    public Long getId() {
+        return id;
+    }
 
-    public String getReason() { return reason; }
+    public Long getCustomerId() {
+        return customerId;
+    }
 
-    public long getAmount() { return amount; }
+    public String getReason() {
+        return reason;
+    }
 
-    public String getStatus() { return status; }
+    public String getStatus() {
+        return status;
+    }
 
-    public Instant getCreatedAt() { return createdAt; }
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    public Instant getReleasedAt() {
+        return releasedAt;
+    }
 }

@@ -2,8 +2,11 @@ package com.securebank.account;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+
 import java.time.Instant;
 
 @Entity
@@ -11,44 +14,73 @@ import java.time.Instant;
 public class Account {
 
     @Id
-    @Column(length = 36)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Column(name = "customer_id", nullable = false, length = 36)
-    private String customerId;
+    @Column(name = "customer_id", nullable = false)
+    private Long customerId;
 
-    @Column(nullable = false, length = 20)
-    private String type;
+    @Column(name = "account_number", nullable = false, length = 34, unique = true)
+    private String accountNumber;
 
-    @Column(nullable = false)
-    private long balance;
+    @Column(name = "account_type", nullable = false, length = 32)
+    private String accountType;
+
+    @Column(name = "balance_cents", nullable = false)
+    private long balanceCents;
 
     @Column(nullable = false, length = 3)
     private String currency;
 
-    @Column(name = "created_at", nullable = false, updatable = false)
+    @Column(nullable = false, length = 32)
+    private String status;
+
+    @Column(name = "created_at", nullable = false)
     private Instant createdAt;
 
-    protected Account() {}
+    protected Account() {
+    }
 
-    public Account(String id, String customerId, String type, long balance, String currency, Instant createdAt) {
-        this.id = id;
+    public Account(Long customerId, String accountNumber, String accountType,
+                   long balanceCents, String currency, String status, Instant createdAt) {
         this.customerId = customerId;
-        this.type = type;
-        this.balance = balance;
+        this.accountNumber = accountNumber;
+        this.accountType = accountType;
+        this.balanceCents = balanceCents;
         this.currency = currency;
+        this.status = status;
         this.createdAt = createdAt;
     }
 
-    public String getId() { return id; }
+    public Long getId() {
+        return id;
+    }
 
-    public String getCustomerId() { return customerId; }
+    public Long getCustomerId() {
+        return customerId;
+    }
 
-    public String getType() { return type; }
+    public String getAccountNumber() {
+        return accountNumber;
+    }
 
-    public long getBalance() { return balance; }
+    public String getAccountType() {
+        return accountType;
+    }
 
-    public String getCurrency() { return currency; }
+    public long getBalanceCents() {
+        return balanceCents;
+    }
 
-    public Instant getCreatedAt() { return createdAt; }
+    public String getCurrency() {
+        return currency;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
 }

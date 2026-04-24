@@ -2,8 +2,11 @@ package com.securebank.transaction;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+
 import java.time.Instant;
 
 @Entity
@@ -11,51 +14,57 @@ import java.time.Instant;
 public class Transaction {
 
     @Id
-    @Column(length = 36)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Column(name = "account_id", nullable = false, length = 36)
-    private String accountId;
+    @Column(name = "account_id", nullable = false)
+    private Long accountId;
 
-    @Column(nullable = false, length = 20)
+    @Column(name = "amount_cents", nullable = false)
+    private long amountCents;
+
+    @Column(nullable = false, length = 16)
     private String type;
-
-    @Column(nullable = false)
-    private long amount;
-
-    @Column(nullable = false, length = 3)
-    private String currency;
 
     @Column(length = 500)
     private String description;
 
-    @Column(name = "created_at", nullable = false, updatable = false)
+    @Column(name = "created_at", nullable = false)
     private Instant createdAt;
 
-    protected Transaction() {}
+    protected Transaction() {
+    }
 
-    public Transaction(String id, String accountId, String type, long amount, String currency,
+    public Transaction(Long accountId, long amountCents, String type,
                        String description, Instant createdAt) {
-        this.id = id;
         this.accountId = accountId;
+        this.amountCents = amountCents;
         this.type = type;
-        this.amount = amount;
-        this.currency = currency;
         this.description = description;
         this.createdAt = createdAt;
     }
 
-    public String getId() { return id; }
+    public Long getId() {
+        return id;
+    }
 
-    public String getAccountId() { return accountId; }
+    public Long getAccountId() {
+        return accountId;
+    }
 
-    public String getType() { return type; }
+    public long getAmountCents() {
+        return amountCents;
+    }
 
-    public long getAmount() { return amount; }
+    public String getType() {
+        return type;
+    }
 
-    public String getCurrency() { return currency; }
+    public String getDescription() {
+        return description;
+    }
 
-    public String getDescription() { return description; }
-
-    public Instant getCreatedAt() { return createdAt; }
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
 }

@@ -2,8 +2,11 @@ package com.securebank.transfer;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+
 import java.time.Instant;
 
 @Entity
@@ -11,51 +14,57 @@ import java.time.Instant;
 public class Transfer {
 
     @Id
-    @Column(length = 36)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Column(name = "source_account_id", nullable = false, length = 36)
-    private String sourceAccountId;
+    @Column(name = "from_account_id", nullable = false)
+    private Long fromAccountId;
 
-    @Column(name = "target_account_id", nullable = false, length = 36)
-    private String targetAccountId;
+    @Column(name = "to_account_id", nullable = false)
+    private Long toAccountId;
 
-    @Column(nullable = false)
-    private long amount;
+    @Column(name = "amount_cents", nullable = false)
+    private long amountCents;
 
-    @Column(nullable = false, length = 3)
-    private String currency;
-
-    @Column(nullable = false, length = 20)
+    @Column(nullable = false, length = 32)
     private String status;
 
-    @Column(name = "created_at", nullable = false, updatable = false)
+    @Column(name = "created_at", nullable = false)
     private Instant createdAt;
 
-    protected Transfer() {}
+    protected Transfer() {
+    }
 
-    public Transfer(String id, String sourceAccountId, String targetAccountId, long amount,
-                    String currency, String status, Instant createdAt) {
-        this.id = id;
-        this.sourceAccountId = sourceAccountId;
-        this.targetAccountId = targetAccountId;
-        this.amount = amount;
-        this.currency = currency;
+    public Transfer(Long fromAccountId, Long toAccountId, long amountCents,
+                    String status, Instant createdAt) {
+        this.fromAccountId = fromAccountId;
+        this.toAccountId = toAccountId;
+        this.amountCents = amountCents;
         this.status = status;
         this.createdAt = createdAt;
     }
 
-    public String getId() { return id; }
+    public Long getId() {
+        return id;
+    }
 
-    public String getSourceAccountId() { return sourceAccountId; }
+    public Long getFromAccountId() {
+        return fromAccountId;
+    }
 
-    public String getTargetAccountId() { return targetAccountId; }
+    public Long getToAccountId() {
+        return toAccountId;
+    }
 
-    public long getAmount() { return amount; }
+    public long getAmountCents() {
+        return amountCents;
+    }
 
-    public String getCurrency() { return currency; }
+    public String getStatus() {
+        return status;
+    }
 
-    public String getStatus() { return status; }
-
-    public Instant getCreatedAt() { return createdAt; }
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
 }
