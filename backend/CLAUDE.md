@@ -1,5 +1,12 @@
 # Backend Conventions
 
+# Backend Conventions
+
+<!-- version: 1.0.0 -->
+<!-- updated: 2026-01-15 -->
+<!-- owners: @backend-leads -->
+
+
 ## Scope
 All production Java code under src/main/java/com/securebank/*
 

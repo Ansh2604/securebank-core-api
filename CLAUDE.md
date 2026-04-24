@@ -1,6 +1,18 @@
 # SecureBank Core Banking API
 
+
 <!-- version: 1.0.0 -->
+
+# SecureBank Core Banking API
+
+<!-- version: 2.0.0 -->
+<!-- updated: 2026-01-15 -->
+<!-- owners: @platform-team -->
+
+## Changelog
+- 2.0.0 (2026-01-15): Added AGENTS.md navigation; docs/ structure; deposit rule
+- 1.0.0 (2026-01-05): Initial bootstrap rules
+
 
 ## Stack
 - Java 21 + Spring Boot 3.3
