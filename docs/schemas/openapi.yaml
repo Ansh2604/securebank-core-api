@@ -1,0 +1,30 @@
+openapi: 3.0.3
+info:
+  title: SecureBank Core API
+  version: 1.0.0
+paths:
+  /api/customers:
+    get:
+      summary: List customers
+      responses:
+        '200':
+          description: OK
+  /api/accounts:
+    post:
+      summary: Open new account
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                customerId: { type: string }
+                accountType: { type: string, enum: [SAVINGS, CHECKING] }
+      responses:
+        '201': { description: Account created }
+components:
+  schemas:
+    Money:
+      type: integer
+      format: int64
+      description: Amount in cents (e.g., 1000 = $10.00)

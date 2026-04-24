@@ -1,0 +1,23 @@
+Table customers {
+  id varchar(36) [pk]
+  kyc_status varchar(20)
+  created_at timestamp
+}
+
+Table accounts {
+  id varchar(36) [pk]
+  customer_id varchar(36) [ref: > customers.id]
+  account_type varchar(20)
+  balance_cents bigint
+  created_at timestamp
+}
+
+Table transfers {
+  id varchar(36) [pk]
+  from_account_id varchar(36) [ref: > accounts.id]
+  to_account_id varchar(36) [ref: > accounts.id]
+  amount_cents bigint
+  status varchar(20)
+  idempotency_key varchar(64) [unique]
+  created_at timestamp
+}
