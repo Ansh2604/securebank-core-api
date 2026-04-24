@@ -1,0 +1,20 @@
+{
+  "week_03": {
+    "logging_rule_pii": 12,
+    "constructor_injection_rule": 7,
+    "money_as_cents_rule": 3,
+    "package_by_feature_rule": 15
+  },
+  "week_02": {
+    "logging_rule_pii": 8,
+    "constructor_injection_rule": 5,
+    "money_as_cents_rule": 1,
+    "package_by_feature_rule": 10
+  },
+  "week_01": {
+    "logging_rule_pii": 3,
+    "constructor_injection_rule": 2,
+    "money_as_cents_rule": 0,
+    "package_by_feature_rule": 6
+  }
+}
