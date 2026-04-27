@@ -36,3 +36,26 @@
 ## Commands
 - mvn spring-boot:run    — start on :8080
 - mvn test               — run tests
+
+## Rules (Structured Template)
+
+### Rule: Money stored as long cents
+
+**What**
+All monetary amounts in entities, DTOs, and method signatures are `long` representing cents.
+
+**Why**
+See docs/architecture/decisions/0003-money-as-cents.md.
+Summary: double has rounding errors; BigDecimal adds ceremony.
+
+**How**
+- Entity field: `long amountCents`
+- DTO field: `long amountCents` (JSON key: amountCents)
+- Never use `amount` or `BigDecimal amount`
+
+**Enforcement**
+- ArchUnit test NoDoubleInMoneyFieldsTest
+- PR reviewer checks for double/BigDecimal in money fields
+
+**Owner**
+@platform-team
